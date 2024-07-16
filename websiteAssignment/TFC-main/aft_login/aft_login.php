@@ -1,0 +1,342 @@
+<?php
+session_start();
+include "../php/config.php";
+
+$sql = "SELECT register.photo FROM register WHERE email LIKE '".$_SESSION["email"]."'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+        content="The Fitness Club is a state of the art GYM, complete with equipment for cardio and strength training." />
+
+        <link rel="icon" href="../img/logo.png" />
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link rel="stylesheet" href="./index.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Rubik+Doodle+Triangles&display=swap"
+    rel="stylesheet">
+
+    <title>The Fitness Club - Gym | Cardio | Yoga | Zumba</title>
+</head>
+
+<body>
+    <div class="position-fixed bottom-0 end-0">
+        <a href="#top"><img class="m-4" src="../img/uparrow.png" alt="Error" height="50px" data-bs-toggle="tooltip"
+                data-bs-placement="bottom" data-bs-title="Move to Top" /></a>
+    </div>
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+        <div class="container" style="background-color: rgb(20, 43, 216);">
+            <a class="navbar-brand text-white" href="./index.html" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                data-bs-title="TFC"
+                style=" font-size: 40px; font-weight: bold; font-family: 'Rubik Doodle Shadow', system-ui;">The Fitness
+                Club</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar" aria-label="Toggle navigation"><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="offcanvas offcanvas-end bg-dark" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
+                        style="filter: invert(1);"></button>
+                </div>
+
+                <div class="offcanvas-bodys">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 gap-3">
+                        <li class="nav-item">
+                            <a class="nav-link text-capitalize text-center active" aria-current="page"
+                                href="./aft_login.php" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                data-bs-title="Home"
+                                style=" font-family: 'Bungee Spice', sans-serif; margin-top: 10px;">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-capitalize text-center" href="./about.php" data-bs-toggle="tooltip"
+                                data-bs-placement="bottom" data-bs-title="About"
+                                style="font-family: 'Bungee Spice', sans-serif; margin-top: 10px;">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-capitalize text-center" href="./trainer.php"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Trainers"
+                                style="font-family: 'Bungee Spice', sans-serif; margin-top: 10px;">Trainers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-capitalize text-center" href="./schedule.php"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Schedule"
+                                style="font-family: 'Bungee Spice', sans-serif; margin-top: 10px;">Schedule</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-capitalize text-center" href="./packages.php"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Packages"
+                                style="font-family: 'Bungee Spice', sans-serif; margin-top: 10px;">Packages</a>
+                        </li>
+
+
+
+                        <li class="nav-item">
+                            <a class="btn btn-danger border border-white text-capitalize px-4 py-2 fw-bold text-center"
+                                href="./ptrainer.php" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                data-bs-title="Hire Private Trainer" style="font-size: 12px; font-weight: bold; color:blue;">Hire Private Trainer</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="dropdown order-3">
+                <img class="rounded-circle" src="../php/photo/<?php  echo $row['photo'];?>" height="50px" width="50px"
+                    style="cursor: pointer;" alt="Profile" class="dropdown-toggle" id="profileDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                    <li><a class="dropdown-item" href="../php/perinfo.php">Personal Details</a></li>
+                    <li><a class="dropdown-item" href="../php/logout.php">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <?php
+    }
+    }
+    ?>
+
+<section class="main bg-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="d-flex justify-content-center align-items-center flex-column">
+                        <h1 class="text-capitalize fw-bolder text-white text-capitalize fs-1 text-start">
+                            Overcome excuses through a series of impactful punches.</h1>
+                        <p class="mt-3 mb-3 para-width text-light-grey text-start"
+                            style="color: black; font-style: italic; text-align: justify;">
+                            "Embark on a journey of expert workouts, nutritional wisdom, and a lively community,
+                            nurturing a comprehensive path to wellness for you."
+                        </p>
+                        <div class="w-100 text-start">
+                            <a class="btn btn-danger fw-bold border border-light rounded-1 text-capitalize px-4 py-2"
+                                style="background-color: blue;" href="../php/index.html" data-bs-toggle="tooltip"
+                                data-bs-placement="bottom" data-bs-title="Stay Connected!">Stay Connected! <i
+                                    class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-12 col-lg-6">
+                    <div class="m-5"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="activity">
+        <div class="container text-center common-title fw-bold">
+            <h2 class="common-heading" style="font-weight: bold; color: blue;">We Offers</h2>
+            <hr class="w-25 mx-auto" />
+        </div>
+        <div class="container p-5">
+            <div class="row g-5">
+                <div class="col-12 col-md-12 col-lg-6">
+                    <div class="px-3 py-5 shadow d-flex rounded-2">
+                        <img src="../img/gym.png" alt="gym" class="d-md-block d-none img-fluid mx-3" width="100px" />
+                        <div>
+                            <p class="mb-3 fw-bolder" style="font-size: 25px; font-weight: bold ; color: blue;">Gym</p>
+                            <hr>
+                            <p style="text-align: justify;">
+                                Elevate fitness at our premier gym. State-of-the-art equipment, expert trainers, and a
+                                vibrant community for your transformative workout experience.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-12 col-lg-6">
+                    <div class="px-3 py-5 shadow d-flex rounded-2">
+                        <img src="../img/cardio.png" alt="cardio" class="d-md-block d-none img-fluid mx-3"
+                            width="100px" />
+                        <div>
+                            <p class="mb-3 fw-bolder" style="font-size: 25px; font-weight: bold ; color: blue;">Cardio
+                            </p>
+                            <hr>
+                            <p style="text-align: justify;">
+                                Revitalize with heart-pounding cardio at our gym. Energize your workout, burn calories,
+                                and boost endurance for a healthier, stronger you.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-12 col-lg-6">
+                    <div class="px-3 py-5 shadow d-flex rounded-2">
+                        <img src="../img/zumba.png" alt="zumba" class="d-md-block d-none img-fluid mx-3"
+                            width="100px" />
+                        <div>
+                            <p class="mb-3 fw-bolder" style="font-size: 25px; font-weight: bold ; color: blue;">Zumba
+                            </p>
+                            <hr>
+                            <p style="text-align: justify;">Experience exhilarating Zumba sessions at our gym. Dance to
+                                fitness with dynamic rhythms,
+                                lively music, and joyful community vibes.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-12 col-lg-6">
+                    <div class="px-3 py-5 shadow d-flex rounded-2">
+                        <img src="../img/yoga.png" alt="yoga" class="d-md-block d-none img-fluid mx-3" width="100px" />
+                        <div>
+                            <p class="mb-3 fw-bolder" style="font-size: 25px; font-weight: bold ; color: blue;">Yoga</p>
+                            <hr>
+                            <p style="text-align: justify;">Discover serenity through yoga at our gym. Enhance
+                                flexibility, balance, and inner peace
+                                with expert guidance in a welcoming atmosphere.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-color more-info-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-6">
+                    <h1 class="text-capitalize fw-bolder text-white">
+                        Uncover your power, <br> unlock your capabilities.</h1>
+                    <p class="mt-3 mb-3 text-light-grey" style="color: black; font-style: italic;">
+                        "Empower your path at The Fitness Club—where strength is uncovered, potential unlocked, and
+                        wellness aspirations achieved."</p>
+                    <div class="w-100 text-md-start">
+                        <a class="btn btn-danger fw-bold border border-light rounded-1 text-capitalize px-4 py-2"
+                            style="background-color: blue;" href="../php/index.html" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" data-bs-title="Stay Connected!">Stay Connected! <i
+                                class="fa-solid fa-arrow-right"></i></a>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-6 col-md-12 col-lg-6"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="facility-section">
+        <div class="container text-center common-title fw-bold">
+            <h2 class="common-heading" style="font-weight: bold; color: blue;">Facilities</h2>
+            <hr class="w-25 mx-auto" />
+        </div>
+        <div class="container p-5">
+            <div class="row g-5">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <div class="px-3 py-5 d-flex rounded-2 shadow flex-lg-row flex-md-column align-items-center">
+                        <img src="../img/equipment.jpg" alt="equipment" class="d-md-block d-none img-fluid mx-3 shadow"
+                            width="350px" />
+                        <div class="p-2 text-center d-flex align-items-center justify-content-center flex-column">
+                            <p class="mb-3 fw-bolder fs-2 lh-1" style="color: blue;">Completely outfitted Gym</p>
+                            <p style="text-align: justify;">Enter our well-equipped gym at The Fitness Club.
+                                Cutting-edge gear suits all levels.
+                                Sculpt, strengthen, and achieve your goals in a success-oriented space.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-12 col-lg-12">
+                    <div class="px-3 py-5 d-flex rounded-2 shadow flex-lg-row flex-md-column align-items-center">
+                        <img src="../img/hallroom.jpg" alt="hall" class="d-md-block d-none img-fluid mx-3 shadow"
+                            width="350px" />
+                        <div class="p-2 text-center d-flex align-items-center justify-content-center flex-column">
+                            <p class="mb-3 fw-bolder fs-2 lh-1" style="color: blue;">Roomy space for Zumba and Yoga.</p>
+                            <p style="text-align: justify;">Explore Zumba and Yoga in our Fitness Club hall. Energize
+                                with Zumba's rhythm or find
+                                serenity in yoga, all in a welcoming fitness environment.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="px-3 py-5 d-flex rounded-2 shadow flex-lg-row flex-md-column align-items-center">
+                    <img src="../img/sauna.jpg" alt="sauna" class="d-md-block d-none img-fluid mx-3 shadow"
+                        width="350px" />
+                    <div class="p-2 text-center d-flex align-items-center justify-content-center flex-column">
+                        <p class="mb-3 fw-bolder fs-2 lh-1" style="color: blue;">Sauna & Steam Space</p>
+                        <p style="text-align: justify;">Indulge in luxury at The Fitness Club's sauna and steam room.
+                            Enjoy tranquility, stress
+                            relief, and muscle rejuvenation for enhanced well-being.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark">
+        <div class="container justify-content-center align-items-center" style="padding: 5rem 3rem 3rem;">
+            <div class="row g-5" style="--bs-gutter-x: 8.5rem;">
+                <div class="col-lg-4">
+                    <div class="text-center text-lg-start">
+                        <a class="text-white" href="#" style="font-size: 30px; font-weight: bold;">The Fitness
+                            Club</a><br /><br />
+                        <p class="text-white" style="text-align: justify;">Join The Fitness Club for diverse workouts,
+                            supportive community, and
+                            holistic well-being. Gym, Zumba, Yoga, sauna—where passion, purpose, and wellness unite.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="text-center text-lg-start">
+                        <h3 class="text-white">Let's Start Today!</h3><br>
+                        <p class="text-white" style="text-align: justify;">Embark on the path to well-being! Become a
+                            part of The Fitness Club
+                            now for a lively community, professional guidance, and a more health-conscious version of
+                            yourself.
+                        </p> <br />
+                        <a class="btn btn-danger fw-bold border border-light rounded-1 text-capitalize px-4 py-2"
+                            style="background-color: blue;" href="../php/index.html#signup" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" data-bs-title="Let's Begin!">Let's Begin!</a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="text-center text-lg-start">
+                        <h3 class="text-white">Stay Connected!</h3><br />
+                        <div class="d-flex gap-2 justify-content-center justify-content-lg-start">
+                            <a href="https://www.facebook.com/"><img src="../img/fb.png" class="img-fluid"
+                                    alt="Facebook" width="40em" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    data-bs-title="Facebook" /></a>
+                            <a href="https://www.instagram.com/"><img src="../img/in.png" class="img-fluid"
+                                    alt="Instagram" width="40em" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    data-bs-title="Instagram" /></a>
+                            <a href="https://twitter.com/"><img src="../img/twi.png" class="img-fluid" alt="Twitter"
+                                    width="36em" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    data-bs-title="Twitter" /></a>
+                        </div>
+                    </div>
+                </div>
+                <hr class="text-white hr" />
+                <div>
+                    <p class="text-white text-center"><span>Privacy Policy | </span>Copyrights &copy; 2023 The Fitness
+                        Club.
+                        All rights reserved!</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
+</body>
+
+</html>
